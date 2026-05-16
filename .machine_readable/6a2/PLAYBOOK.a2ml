@@ -1,0 +1,34 @@
+# SPDX-License-Identifier: PMPL-1.0-or-later
+# PLAYBOOK.a2ml — executable plans & procedures
+# Project: action-trust-layers
+
+[metadata]
+version = "0.1.0"
+last-updated = "2026-05-16"
+
+[build]
+toolchain = "rust 1.95 (see .tool-versions)"
+cmd = "just build   # == cargo build --release"
+
+[test]
+cmd = "just test    # == cargo test  (11 unit + 2 integration)"
+thesis = "tests/closure.rs: flat all-SHA DENIES nested actions/upload-artifact@v4; layered ADMITS it under the `actions` anchor."
+
+[run]
+scan-repo = "atl <repo>                       # scans .github/workflows"
+scan-file = "atl path/to/wf.yml --json"
+offline   = "atl wf.yml --offline             # no fetch; closure not expanded"
+config    = "atl wf.yml --config atl.toml"
+exit      = "non-zero if the layered policy denies anything"
+
+[v1-plan]
+goal = "Real Layer-2 provenance"
+steps = [
+  "Add a ProvenanceResolver: `gh attestation verify` / Sigstore for owner-or-action identity",
+  "Admit a moving ref whose build provenance verifies under a pinned identity (rotation-tolerant)",
+  "policy: provenance_owners -> provenance_identities with attestation predicate",
+  "Tests: a fixture with/without valid attestation",
+]
+
+[v2-plan]
+goal = "Emit the org-ruleset config that enforces the layered policy in-platform"

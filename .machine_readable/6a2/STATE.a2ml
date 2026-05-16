@@ -1,0 +1,26 @@
+# SPDX-License-Identifier: PMPL-1.0-or-later
+# STATE.a2ml — project state, phase, milestones
+# Project: action-trust-layers
+
+[metadata]
+version = "0.1.0"
+last-updated = "2026-05-16"
+
+[state]
+phase = "v0 shipped"
+status = "active / design maturing"
+default-branch = "main"
+
+[milestones]
+m0 = "DONE — DESIGN.adoc: layered model, TLSA mapping, roadmap"
+m1 = "DONE — v0 `atl` CLI merged (PR #2): transitive closure + layered verdict; 11 unit + 2 integration tests; thesis proven"
+m2 = "DONE — recreate-clean (orphan, zero PseudoScript ancestry)"
+m3 = "DONE — bespoke RSR retemplatisation (this change)"
+m4 = "NEXT — v1: Layer-2 real provenance (GitHub Artifact Attestations / Sigstore `gh attestation verify`); rotation-tolerant"
+m5 = "v2: org-ruleset generator (enforce layered policy in-platform; stop hand-patching nested composites)"
+m6 = "v3: generalise model to other forges (GitLab, Forgejo)"
+
+[health]
+build = "cargo build/test green (rustc/cargo 1.95)"
+tests = "13 (11 unit + 2 integration)"
+ci = "see .github/workflows"

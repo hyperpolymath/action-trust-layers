@@ -1,0 +1,31 @@
+# SPDX-License-Identifier: PMPL-1.0-or-later
+# META.a2ml — architecture decisions & development practices
+# Project: action-trust-layers
+
+[metadata]
+version = "0.1.0"
+last-updated = "2026-05-16"
+
+[architecture]
+shape = "Rust lib + bin (`atl`)"
+modules = [
+  "model   — ActionRef parsing, PinForm, Verdict layers",
+  "parse   — permissive `uses:` extraction (workflow + composite)",
+  "resolve — Resolver trait (Http/Offline) + transitive walker",
+  "policy  — TOML config + layered evaluate()",
+  "report  — verdict tree + JSON",
+]
+decision-direct-transpile = "n/a"
+
+[decisions]
+d1 = "Layered DANE/TLSA model (Anchor/Provenance/Leaf), NOT flat recursive all-SHA. Rationale in DESIGN.adoc."
+d2 = "Rust, matching estate tooling (gitbot-fleet bots, robot-repo-automaton) — no banned-language friction."
+d3 = "lib+bin split so the transitive walker is integration-testable (tests/closure.rs proves the thesis offline)."
+d4 = "Network resolution via raw.githubusercontent (ureq); offline-safe + cycle/depth guarded; failures are non-fatal."
+d5 = "Empty policy config degrades EXACTLY to the current flat all-SHA rule — adoption is incremental & reversible."
+
+[practices]
+docs = "AsciiDoc (.adoc) default; .md only for GitHub community-health files."
+tasks = "just (Makefiles forbidden)."
+provenance = "Spun out of affinescript#122 / ubicity#30 CI cleanup; see ECOSYSTEM.a2ml."
+template-note = "Repo was recreate-cleaned off the polluted rsr-template-repo (ships a PseudoScript snapshot — rsr-template-repo#45). This 6a2 set is authored bespoke, not carried."
