@@ -1,0 +1,6 @@
+# Security Policy
+
+This is a design-stage project (see DESIGN.adoc). No releases yet.
+
+Report vulnerabilities privately to the maintainer
+(j.d.a.jewell@open.ac.uk) rather than via public issues.

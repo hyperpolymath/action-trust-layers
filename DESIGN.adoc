@@ -1,0 +1,123 @@
+= action-trust-layers — Design
+:toc: left
+:sectnums:
+
+== Problem
+
+The prevailing CI supply-chain control is *"pin every GitHub Action to a
+full-length commit SHA, recursively"*. It is dumb-but-bulletproof and
+tooling-agnostic, but it has a structural failure mode: a third-party
+*composite* action you correctly SHA-pin may itself reference a nested
+action by a *moving tag* (e.g. `actions/upload-pages-artifact@<sha>`
+internally does `uses: actions/upload-artifact@v4`). A recursive
+"all-SHA" ruleset rejects the nested moving tag — which the consumer
+*cannot pin*, because they do not own the upstream tree. The only
+escapes are brittle: vendor the composite, or hand-replace it with its
+expanded primitives (observed in the wild: `hyperpolymath/ubicity`
+casket-pages.yml → PR #38).
+
+Root cause: a one-dimensional, leaf-exact-only trust policy cannot
+express *"I trust GitHub-published / provenance-attested actions,
+including their transitive nested actions"*.
+
+== Inspiration: DANE/TLSA is multi-dimensional on purpose
+
+DANE/TLSA (RFC 6698) derives its power from three *orthogonal* knobs.
+Each maps cleanly onto a CI-supply-chain trust layer:
+
+[cols="1,2,3"]
+|===
+| TLSA field | DANE meaning | action-trust-layers analogue
+
+| *Usage* (PKIX-TA/EE, DANE-TA/EE)
+| pin at the *trust anchor* (CA) or the *end entity* (leaf cert)
+| *Layer 1 — Anchor:* trust any action under a known owner
+  (`actions/*`, `github/*`, `hyperpolymath/*`) *including transitive
+  nested actions* — no per-leaf SHA required.
+
+| *Selector* (full cert / SPKI)
+| pin the *key*, not the cert → survives rotation
+| *Layer 2 — Provenance:* require a verified signature / SLSA build
+  provenance attestation on the action; new SHAs that still verify
+  under the same identity are admitted automatically (no churn).
+
+| *Matching type* (exact / SHA-256 / SHA-512)
+| strength/form of the match
+| *Layer 3 — Leaf-exact:* full-commit-SHA pin, reserved for the
+  untrusted long tail or where zero drift is mandatory.
+|===
+
+Today's "all-SHA recursive" policy is *Layer 3 only, applied
+universally* — equivalently, "TLSA matching-type-exact, end-entity, no
+trust anchors permitted". Maximally strict, and provably unable to
+express Layers 1–2, which is exactly why it forces hand-patching.
+
+== The model
+
+A policy is a layered evaluation over the *transitive* action graph of
+a workflow:
+
+[source]
+----
+for each action reference R in closure(workflow):
+  if owner(R) in ANCHOR_ALLOWLIST:            -> ADMIT  (Layer 1)
+  elif has_verified_provenance(R, IDENTITY):  -> ADMIT  (Layer 2)
+  elif is_full_sha_pinned(R):                 -> ADMIT  (Layer 3)
+  else:                                       -> DENY
+----
+
+Key properties:
+
+* *Transitive-aware*: evaluates nested/composite actions, like the
+  strict policy — but Layer 1/2 short-circuit the parts you do not own.
+* *Rotation-tolerant*: Layer 2 admits new upstream SHAs that still
+  carry valid provenance under the pinned identity — no consumer churn.
+* *Degrades to status quo*: with an empty anchor allow-list and no
+  provenance requirement it is exactly today's all-SHA policy, so
+  adoption is incremental and reversible.
+
+== Realisable on existing GitHub primitives
+
+This is not hypothetical — the building blocks exist, just unused
+together:
+
+* *Layer 1*: organisation "allowed actions" policy by owner / verified
+  creator; repository rulesets.
+* *Layer 2*: Artifact Attestations + `actions/attest-build-provenance`,
+  `gh attestation verify`; Immutable Actions / immutable releases
+  (a non-moving tag ≈ SPKI-pin without the ergonomic loss).
+* *Layer 3*: required full-SHA pinning (the current estate ruleset).
+
+The gap is a *policy engine* that evaluates the layered predicate over
+the transitive closure and emits an allow/deny + rationale, plus the
+org-ruleset configuration that expresses it.
+
+== Scope / non-goals (v0)
+
+* In: a checker that, given a repo's workflows, computes the transitive
+  action closure and evaluates the layered policy; a recommended
+  org-ruleset shape; documentation of the model.
+* Out (for now): a hosted service; non-GitHub CI backends (the layered
+  *model* generalises — GitLab, Forgejo — but v0 targets Actions).
+
+== Roadmap
+
+. *v0 — Spec + closure tool.* Formalise the policy; build a CLI that
+  resolves the transitive action graph (incl. composite `action.yml`)
+  and reports per-node layer verdicts. Validates the model on the
+  ubicity/gitbot-fleet corpus.
+. *v1 — Provenance layer.* Wire Layer 2 to GitHub Artifact
+  Attestations / Sigstore; admit rotation under a pinned identity.
+. *v2 — Org-ruleset generator.* Emit the org "allowed actions" +
+  ruleset config that enforces the layered policy in-platform, so
+  consumers stop hand-patching nested composites.
+. *v3 — Generalise* the model to other forges.
+
+== Provenance of this idea
+
+Surfaced while clearing pre-existing CI rot during the affinescript#122
+/ ubicity#30 work: the recursive all-SHA ruleset could not express
+trust in a GitHub-first-party nested action, forcing the manual
+composite-expansion in ubicity PR #38. The flat policy is the
+*expedient* shape; this layered model is the *correct* shape and where
+the ecosystem is heading.

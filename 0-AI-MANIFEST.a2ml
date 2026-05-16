@@ -1,0 +1,16 @@
+# SPDX-License-Identifier: PMPL-1.0-or-later
+# Copyright (c) 2026 Jonathan D.A. Jewell (hyperpolymath) <j.d.a.jewell@open.ac.uk>
+#
+# AI-MANIFEST.a2ml — AI agent work allocation and policy
+
+[metadata]
+version = "0.1.0"
+last-updated = "2026-05-16"
+
+[project]
+name = "action-trust-layers"
+purpose = "Layered, DANE/TLSA-inspired trust model for CI supply-chain (GitHub Actions) pinning: trust-anchor + provenance/key + leaf-exact layers, vs flat recursive SHA-pinning."
+status = "design / v0"
+
+[policy]
+docs = "AsciiDoc (.adoc) by default; .md only for GitHub community-health files."
