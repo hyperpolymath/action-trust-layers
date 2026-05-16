@@ -1,0 +1,10 @@
+# SPDX-License-Identifier: PMPL-1.0-or-later
+* text=auto eol=lf
+*.rs    text eol=lf diff=rust
+*.toml  text eol=lf
+*.adoc  text eol=lf
+*.a2ml  text eol=lf
+*.md    text eol=lf
+Cargo.lock text eol=lf -diff
+*.png binary
+*.ico binary

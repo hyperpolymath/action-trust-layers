@@ -1,0 +1,27 @@
+# SPDX-License-Identifier: PMPL-1.0-or-later
+# Mustfile — deployment state contract for action-trust-layers.
+# Spec: https://github.com/hyperpolymath/mustfile
+#
+# Honest state: this is a design-stage developer CLI. There is no
+# service/site deployment target; the only "artifact" is the locally
+# built `atl` binary. This contract is intentionally minimal and
+# truthful rather than a fabricated deploy pipeline — it will grow when
+# (v2) a hosted policy-engine / org-ruleset generator exists.
+
+[artifact]
+kind = "cli-binary"
+name = "atl"
+build = "cargo build --release"
+path = "target/release/atl"
+
+[deploy]
+state = "none"
+reason = "design-stage; no service or published package yet"
+# v1/v2 will add: crates.io publish (the library) and/or a GitHub
+# Action wrapping `atl` for in-CI layered checks.
+
+[environments]
+# none provisioned (see [deploy].state)
+
+[invariants]
+pre-release = "just verify  # fmt-check + lint + test (thesis must hold)"

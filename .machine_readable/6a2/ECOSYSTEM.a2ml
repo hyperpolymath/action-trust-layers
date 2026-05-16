@@ -1,0 +1,23 @@
+# SPDX-License-Identifier: PMPL-1.0-or-later
+# ECOSYSTEM.a2ml — positioning & related projects
+# Project: action-trust-layers
+
+[metadata]
+version = "0.1.0"
+last-updated = "2026-05-16"
+
+[positioning]
+what = "A layered, DANE/TLSA-inspired trust model + tool for CI (GitHub Actions) supply-chain pinning."
+problem = "Flat 'all actions pinned to full SHA, recursively' cannot express trust in a first-party nested action inside a third-party composite, forcing brittle hand-expansion."
+niche = "Sits beside the org SHA-pin ruleset; aims to replace/augment it with an Anchor/Provenance/Leaf-exact policy engine."
+
+[origin]
+spun-out-of = "hyperpolymath/affinescript#122 + hyperpolymath/ubicity#30 CI cleanup"
+trigger = "ubicity PR #38 had to hand-expand actions/upload-pages-artifact (nested unpinned actions/upload-artifact@v4)"
+
+[related]
+ubicity = "hyperpolymath/ubicity — first corpus; ubicity#37 (gitbot-fleet integration) is adjacent"
+gitbot-fleet = "hyperpolymath/gitbot-fleet — estate bots; robot-repo-automaton is the Tier-3 compliance executor (a fixer, not a scaffolder — distinct concern)"
+standards = "hyperpolymath/standards — RSR required-files spec this repo conforms to"
+rsr-template = "hyperpolymath/rsr-template-repo — currently ships a PseudoScript snapshot; rsr-template-repo#45 tracks neutralising it"
+github-primitives = "Artifact Attestations, Immutable Actions, owner allow-lists realise Layers 1-2"

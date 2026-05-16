@@ -1,0 +1,27 @@
+# SPDX-License-Identifier: PMPL-1.0-or-later
+# NEUROSYM.a2ml — symbolic semantics & proof obligations
+# Project: action-trust-layers
+
+[metadata]
+version = "0.1.0"
+last-updated = "2026-05-16"
+
+[domain]
+node = "an action reference R in the transitive closure of a workflow"
+owner = "the GitHub owner of R (None for local/docker)"
+pin = "FullSha | MovingRef | Local | Docker"
+verdict = "AdmitAnchor | AdmitProvenance | AdmitSha | AdmitUnderAnchor | AdmitLocal | Deny"
+
+[policy-semantics]
+# Mirrors policy::evaluate (src/policy.rs) and DESIGN.adoc §model.
+rule = "owner ∈ anchors ⟹ AdmitAnchor ; else owner ∈ provenance ⟹ AdmitProvenance ; else under an anchored ancestor ⟹ AdmitUnderAnchor ; else FullSha ⟹ AdmitSha ; else Deny"
+transitivity = "an Anchor verdict covers the whole nested subtree (Layer-1 short-circuit) — this is the crux that flat recursive all-SHA cannot express."
+
+[proof-obligations]
+po1 = "DEGRADATION: with anchors=∅ ∧ provenance=∅, evaluate ≡ flat 'all-SHA recursive' (only FullSha/Local admitted). Witness: policy::tests::empty_config_degrades_to_all_sha."
+po2 = "THESIS (raison d'être): ∃ workflow W: under flat policy some node ∈ closure(W) is Deny, yet under the layered policy with `actions` ∈ anchors that same node is Admit, with NO consumer rewrite. Witness: tests/closure.rs::{flat_all_sha_policy_would_deny_the_same_nested_tag, layered_admits_transitive_nested_moving_tag} — the actions/upload-pages-artifact → actions/upload-artifact@v4 case."
+po3 = "TERMINATION: the walker terminates — cycle guard (visiting set) + depth cap. Witness: resolve::walk guards."
+po4 = "SOUNDNESS-OF-SHA: pin=FullSha ⟺ ref is exactly 40 hex chars. Witness: model::tests::parses_repo_and_classifies_sha."
+
+[invariant]
+must-hold = "po2 (the thesis) MUST remain provable; if tests/closure.rs ever fails, the project's central claim is broken — treat as release-blocking."

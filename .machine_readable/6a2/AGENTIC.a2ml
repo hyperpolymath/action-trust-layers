@@ -1,0 +1,25 @@
+# SPDX-License-Identifier: PMPL-1.0-or-later
+# AGENTIC.a2ml — AI agent operational gating
+# Project: action-trust-layers
+
+[metadata]
+version = "0.1.0"
+last-updated = "2026-05-16"
+
+[allow]
+edit = ["src/**", "tests/**", "*.adoc", ".machine_readable/**", "justfile", "atl.toml", ".github/**"]
+build = "cargo build/test"
+
+[gate]
+require-pr = true
+require-green-tests = "cargo test must pass before merge"
+require-thesis-invariant = "tests/closure.rs (the flat-deny / layered-admit invariant) MUST stay green — it is the project's reason to exist (see NEUROSYM.a2ml)."
+self-merge = "only on explicit per-PR user authorization (estate convention)"
+
+[forbidden]
+languages = "no V; no Python/Go/npm in source (Rust crate)"
+files = "no Makefile (use just); no carried template/PseudoScript content"
+docs = ".md only for GitHub community-health files; else .adoc"
+
+[provenance]
+note = "Created by Claude during the affinescript#122 / ubicity#30 work. Repo recreate-cleaned off a polluted template (rsr-template-repo#45); all 6a2 files authored bespoke."
