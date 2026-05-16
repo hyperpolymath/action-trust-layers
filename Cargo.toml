@@ -1,0 +1,25 @@
+# SPDX-License-Identifier: PMPL-1.0-or-later
+[package]
+name = "action-trust-layers"
+version = "0.0.0"
+edition = "2021"
+description = "Layered DANE/TLSA-inspired trust evaluation for CI (GitHub Actions) supply-chain pinning"
+license = "PMPL-1.0-or-later"
+repository = "https://github.com/hyperpolymath/action-trust-layers"
+
+[[bin]]
+name = "atl"
+path = "src/main.rs"
+
+[dependencies]
+anyhow = "1"
+clap = { version = "4", features = ["derive"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+serde_yaml = "0.9"
+toml = "0.8"
+ureq = "2"
+
+[profile.release]
+strip = true
+lto = true

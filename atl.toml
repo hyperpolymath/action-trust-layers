@@ -1,0 +1,20 @@
+# SPDX-License-Identifier: PMPL-1.0-or-later
+# action-trust-layers — sample layered policy.
+# See DESIGN.adoc §"The model". Omitting --config uses these same
+# built-in estate defaults.
+
+# Layer 1 — trust anchors. Actions under these owners (AND their
+# transitive nested actions) are admitted without a per-leaf SHA pin.
+# This is what lets `actions/upload-pages-artifact@<sha>`'s internal
+# `actions/upload-artifact@v4` pass — instead of forcing the consumer
+# to hand-expand the composite (cf. ubicity casket-pages.yml).
+anchor_owners = ["actions", "github", "hyperpolymath"]
+
+# Layer 2 — provenance-trusted owners. v0 placeholder: an owner listed
+# here is admitted as if its build provenance verified. Real Sigstore /
+# GitHub Artifact Attestation verification is v1 (DESIGN.adoc roadmap).
+provenance_owners = []
+
+# Everything else falls to Layer 3: admitted only if pinned to a full
+# 40-hex commit SHA; otherwise DENY. With both lists empty this whole
+# policy degrades exactly to the current "all-SHA, recursive" rule.
