@@ -1,4 +1,4 @@
-// SPDX-License-Identifier: PMPL-1.0-or-later
+// SPDX-License-Identifier: MPL-2.0
 //! Extract every `uses:` reference from a GitHub Actions workflow or a
 //! composite action definition. Permissive (serde_yaml::Value) so we do
 //! not choke on the long tail of valid-but-unusual workflow shapes.

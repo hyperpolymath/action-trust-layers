@@ -1,4 +1,4 @@
-# SPDX-License-Identifier: PMPL-1.0-or-later
+# SPDX-License-Identifier: MPL-2.0
 # action-trust-layers — sample layered policy.
 # See DESIGN.adoc §"The model". Omitting --config uses these same
 # built-in estate defaults.

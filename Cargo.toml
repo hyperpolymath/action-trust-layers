@@ -1,10 +1,10 @@
-# SPDX-License-Identifier: PMPL-1.0-or-later
+# SPDX-License-Identifier: MPL-2.0
 [package]
 name = "action-trust-layers"
 version = "0.0.0"
 edition = "2021"
 description = "Layered DANE/TLSA-inspired trust evaluation for CI (GitHub Actions) supply-chain pinning"
-license = "PMPL-1.0-or-later"
+license = "MPL-2.0"
 repository = "https://github.com/hyperpolymath/action-trust-layers"
 
 [[bin]]

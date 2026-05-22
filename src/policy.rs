@@ -1,4 +1,4 @@
-// SPDX-License-Identifier: PMPL-1.0-or-later
+// SPDX-License-Identifier: MPL-2.0
 //! The layered policy: load config, evaluate a node's verdict.
 //! Mirrors the pseudocode in DESIGN.adoc §"The model".
 

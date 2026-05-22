@@ -1,4 +1,4 @@
-// SPDX-License-Identifier: PMPL-1.0-or-later
+// SPDX-License-Identifier: MPL-2.0
 //! Core types: an action reference, how it is pinned, and the layered
 //! trust verdict. See DESIGN.adoc for the model.
 

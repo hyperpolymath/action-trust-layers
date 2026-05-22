@@ -1,4 +1,4 @@
-// SPDX-License-Identifier: PMPL-1.0-or-later
+// SPDX-License-Identifier: MPL-2.0
 //! The thesis, proven deterministically (no network): a third-party
 //! composite that is correctly SHA-pinned but internally references a
 //! *moving* nested tag (`actions/upload-pages-artifact@<sha>` →

@@ -1,4 +1,4 @@
-// SPDX-License-Identifier: PMPL-1.0-or-later
+// SPDX-License-Identifier: MPL-2.0
 //! Resolve an action's definition and walk the *transitive* closure,
 //! applying the layered policy as it goes. A composite action's nested
 //! `uses:` are followed; an owner-anchored subtree is admitted whole

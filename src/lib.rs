@@ -1,4 +1,4 @@
-// SPDX-License-Identifier: PMPL-1.0-or-later
+// SPDX-License-Identifier: MPL-2.0
 //! action-trust-layers — layered DANE/TLSA-inspired trust evaluation
 //! for CI (GitHub Actions) supply-chain pinning. See DESIGN.adoc.
 
