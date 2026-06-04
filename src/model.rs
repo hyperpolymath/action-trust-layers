@@ -1,4 +1,5 @@
 // SPDX-License-Identifier: MPL-2.0
+// Copyright (c) Jonathan D.A. Jewell <j.d.a.jewell@open.ac.uk>
 //! Core types: an action reference, how it is pinned, and the layered
 //! trust verdict. See DESIGN.adoc for the model.
 

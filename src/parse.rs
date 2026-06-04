@@ -1,4 +1,5 @@
 // SPDX-License-Identifier: MPL-2.0
+// Copyright (c) Jonathan D.A. Jewell <j.d.a.jewell@open.ac.uk>
 //! Extract every `uses:` reference from a GitHub Actions workflow or a
 //! composite action definition. Permissive (serde_yaml::Value) so we do
 //! not choke on the long tail of valid-but-unusual workflow shapes.

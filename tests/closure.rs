@@ -1,4 +1,5 @@
 // SPDX-License-Identifier: MPL-2.0
+// Copyright (c) Jonathan D.A. Jewell <j.d.a.jewell@open.ac.uk>
 //! The thesis, proven deterministically (no network): a third-party
 //! composite that is correctly SHA-pinned but internally references a
 //! *moving* nested tag (`actions/upload-pages-artifact@<sha>` →

@@ -1,4 +1,5 @@
 // SPDX-License-Identifier: MPL-2.0
+// Copyright (c) Jonathan D.A. Jewell <j.d.a.jewell@open.ac.uk>
 //! Resolve an action's definition and walk the *transitive* closure,
 //! applying the layered policy as it goes. A composite action's nested
 //! `uses:` are followed; an owner-anchored subtree is admitted whole
