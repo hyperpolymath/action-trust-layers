@@ -1,0 +1,79 @@
+// SPDX-License-Identifier: CC-BY-SA-4.0
+// Copyright (c) Jonathan D.A. Jewell <j.d.a.jewell@open.ac.uk>
+= ⚠️ Prototype status, disclaimers & how this fits the ethics work
+
+[.lead]
+*action-trust-layers is a design-stage research prototype (v0), not a
+product.* It floats one idea — borrowing DANE/TLSA's layered pinning model
+for CI supply-chain trust — and shares it openly for critique.
+
+== What "prototype" means here
+
+* *Design / v0.* This is closer to a proposal than a tool. The model,
+  `atl.toml` schema, CLI and evaluation semantics are all provisional and
+  may change or be dropped. See link:DESIGN.adoc[DESIGN.adoc] for the
+  intended architecture and roadmap.
+* *Unproven.* The trust model has not been formally analysed or
+  independently reviewed. Treat every claim as a hypothesis to be tested.
+* *No warranty.* Provided "as is", with no warranty of any kind, to the
+  extent permitted by the licence. See `LICENSE` / `LICENSES`.
+
+== Trust disclaimer (please read)
+
+This project is *about deciding what to trust*, which makes over-trusting it
+particularly tempting. Please don't.
+
+* *Not a substitute for SHA-pinning yet.* Full recursive commit-SHA pinning
+  is the boring, bulletproof baseline. Until this model is implemented,
+  reviewed and battle-tested, do not weaken that baseline on its say-so.
+* *A trust policy can be wrong.* "Anchor" and "provenance" layers admit
+  actions on softer evidence than an exact hash. That is the whole point —
+  and also exactly where a mistake becomes a supply-chain foothold. Any real
+  deployment needs its own threat model and review.
+* *Security-relevant, not security-audited.* Nothing here has had a security
+  audit. Do not place it on a critical trust path in production.
+
+== Interest and collaboration warmly welcome
+
+This is published to *invite scrutiny of the idea*, not to ship a tool.
+
+* Open an *issue* or *discussion* with attacks, edge cases, "this degrades
+  unsafely when…", or prior art we should know about.
+* Critique of the *ethics/trust framing* (below) is especially valued.
+* See `MAINTAINERS.adoc`, `GOVERNANCE.adoc` and `SECURITY.md` before
+  contributing.
+
+== Where the ethics thinking lives
+
+Supply-chain trust is an *ethics* question as much as a security one — who
+gets the benefit of the doubt, and who carries the risk when it is misplaced.
+That reasoning is developed in dedicated sibling projects across the estate:
+
+[cols="1,3",options="header"]
+|===
+| Project | Role in the ethics picture
+
+| https://github.com/hyperpolymath/phronesis[*Phronesis*]
+| A "practical wisdom" language — the estate's substrate for expressing
+  normative reasoning, including judgements about trust and risk.
+
+| https://github.com/hyperpolymath/phronesiser[*Phronesiser*]
+| Adds *normative ethical constraints* to AI agents via Phronesis — the home
+  for the *values* behind an allow/deny call.
+
+| https://github.com/hyperpolymath/vexometer[*Vexometer*]
+| The *interaction-ethics / UX* side: an "Irritation Surface Analyser" for
+  the human cost of tools. A trust policy that forces brittle, humiliating
+  workarounds is a real cost, and this is how it gets named.
+
+| https://github.com/hyperpolymath/conative-gating[*conative-gating*]
+| Sibling prototype applying the same "don't grant blanket permission"
+  instinct to *model actions* rather than CI actions.
+
+| https://github.com/hyperpolymath/palimpsest-license[*Palimpsest License*]
+| The ethical-use licence family this repo ships under; its Exhibit A sets
+  out shared ethical-use expectations for the code.
+|===
+
+For the ethics rationale specifically, start with *Phronesiser* (the
+*normative* side) and *Vexometer* (the *human-experience* side).
