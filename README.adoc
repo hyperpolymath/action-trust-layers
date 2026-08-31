@@ -15,20 +15,6 @@ A layered, DANE/TLSA-inspired trust model for CI supply-chain
 **Status: design / v0** — see link:DESIGN.adoc[DESIGN.adoc] for the
 full architecture and roadmap.
 
-image:https://img.shields.io/badge/status-prototype-orange.svg[Prototype,link="PROTOTYPE.adoc"]
-
-[WARNING]
-====
-*Design-stage research prototype — a proposal, not a tool.* The trust model
-is unproven and un-audited; do not weaken recursive SHA-pinning on its say-so
-yet. Interest, critique and collaboration are warmly welcome. +
-See link:PROTOTYPE.adoc[*PROTOTYPE.adoc*] for the full disclaimer and how
-this connects to the ethics work —
-https://github.com/hyperpolymath/phronesiser[Phronesiser] (normative
-constraints) and https://github.com/hyperpolymath/vexometer[Vexometer]
-(interaction ethics / UX).
-====
-
 ---
 
 == Why
