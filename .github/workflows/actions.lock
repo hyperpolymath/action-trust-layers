@@ -3,16 +3,23 @@
 # Docs: https://gh.io/actions-lockfile
 version: 'v0.0.2'
 workflows:
+    '.github/workflows/codeql.yml':
+        - 'actions/checkout@v4.1.1'
     '.github/workflows/governance.yml': []
     '.github/workflows/hypatia-scan.yml': []
     '.github/workflows/label-triage.yml': []
     '.github/workflows/labels.yml': []
-    '.github/workflows/secret-scanner.yml': []
     '.github/workflows/push-email-notify.yml':
-        - 'dawidd6/action-send-mail@v3.12.0'
+        - 'hyperpolymath/smtp-notify-action@v0.1.0'
+    '.github/workflows/secret-scanner.yml': []
 dependencies:
-    'dawidd6/action-send-mail@v3.12.0':
-        ref: 'v3.12.0'
-        commit: 'sha1-6e502825a508b867ab2954ad6343b68787624c01'
-        owner_id: 9713907
-        repo_id: 222439721
+    'actions/checkout@v4.1.1':
+        ref: 'v4.1.1'
+        commit: 'sha1-b4ffde65f46336ab88eb53be808477a3936bae11'
+        owner_id: 44036562
+        repo_id: 197814629
+    'hyperpolymath/smtp-notify-action@v0.1.0':
+        ref: 'v0.1.0'
+        commit: 'sha1-1b3b752d39a4fe4c0f28f10905e4608789d3e050'
+        owner_id: 6759885
+        repo_id: 1352485172
