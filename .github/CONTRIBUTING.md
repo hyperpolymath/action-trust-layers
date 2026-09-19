@@ -9,7 +9,7 @@ SPDX-FileCopyrightText: 2026 Jonathan D.A. Jewell (hyperpolymath) <6759885+hyper
 
 Developers working **on** `action-trust-layers`. For consumers (people
 calling or depending on it) see
-<a href="./usage.adoc" class="adoc">usage</a>.
+<a href="../docs/usage.adoc" class="adoc">usage</a>.
 
 ## Local-dev setup
 
