@@ -103,8 +103,11 @@ When you make a non-obvious design decision, write it down:
 
 ## Reporting issues
 
-- Bugs in `action-trust-layers`: file at
+- Bugs in `action-trust-layers` (excluding security vulnerabilities): file at
   `hyperpolymath/action-trust-layers/issues`.
+
+- Security vulnerabilities: report privately to the maintainer as described in
+  `SECURITY.adoc`. Do not file them in public issues.
 
 - Estate-wide concerns (policy, conventions, CI): file at
   `hyperpolymath/standards/issues`.
