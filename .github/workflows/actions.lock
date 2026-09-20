@@ -13,11 +13,24 @@ workflows:
         - 'hyperpolymath/smtp-notify-action@v0.3.0'
     '.github/workflows/secret-scanner.yml': []
 dependencies:
+    'actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1':
+        ref: 'v7.0.1'
+        commit: 'sha1-3d3c42e5aac5ba805825da76410c181273ba90b1'
+        owner_id: 44036562
+        repo_id: 197814629
+
     'actions/checkout@v7.0.1':
         ref: 'v7.0.1'
         commit: 'sha1-3d3c42e5aac5ba805825da76410c181273ba90b1'
         owner_id: 44036562
         repo_id: 197814629
+
+    'github/codeql-action@29b1f65c1f735799893313399435a59f54045865':
+        ref: '29b1f65c1f735799893313399435a59f54045865'
+        commit: 'sha1-29b1f65c1f735799893313399435a59f54045865'
+        owner_id: 9919
+        repo_id: 259445878
+
     'hyperpolymath/smtp-notify-action@v0.3.0':
         ref: 'v0.3.0'
         commit: 'sha1-22e7bdb322c430c1d0dac6b3bb307f4bb139d0be'
